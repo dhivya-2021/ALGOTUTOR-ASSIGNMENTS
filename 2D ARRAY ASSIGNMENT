@@ -1,0 +1,139 @@
+#1.Spiral Matrix II
+public int[][] generateMatrix(int n) {
+    int[][] result = new int[n][n];
+ 
+    int k=1; 
+    int top=0;
+    int bottom=n-1;
+    int left=0;
+    int right=n-1;
+ 
+    while(k<=n*n){
+        for(int i=left; i<=right; i++){
+            result[top][i]=k;
+            k++;
+        }    
+        top++;
+ 
+        for(int i=top; i<=bottom; i++){
+            result[i][right]=k;
+            k++;
+        }
+        right--;
+ 
+        for(int i=right; i>=left; i--){
+            result[bottom][i]=k;
+            k++;
+        }
+        bottom--;
+ 
+        for(int i=bottom; i>=top; i--){
+            result[i][left] = k;
+            k++;
+        }
+        left++;
+    }
+ 
+    return result;
+}
+2.Richest Customer Wealth
+class Solution:
+    def maximumWealth(self, accounts: List[List[int]]) -> int:
+        mins=0
+        sums=0
+        for i in range(0,len(accounts)):
+           for j in range(0,len(accounts[i])):
+              sums=sums+accounts[i][j]
+           if sums>mins:
+               mins=sums
+           sums=0
+        return mins
+3.Toeplitz Matrix
+class Solution {
+ public:
+  bool isToeplitzMatrix(vector<vector<int>>& matrix) {
+    for (int i = 0; i + 1 < matrix.size(); ++i)
+      for (int j = 0; j + 1 < matrix[0].size(); ++j)
+        if (matrix[i][j] != matrix[i + 1][j + 1])
+          return false;
+    return true;
+  }
+};
+4.Matrix Diagonal Sum
+class Solution {
+    public int diagonalSum(int[][] mat) {
+        
+        int diagonalSum = 0;
+        int len = mat.length - 1;
+        
+        for(int i=0; i<mat.length; i++){
+            for(int j=0; j<mat[i].length; j++){
+                
+                if(i == j){
+                    diagonalSum += mat[i][j];
+                }
+                else if(i == (len-j)){
+                    diagonalSum += mat[i][j];
+                }
+            }
+        }
+        
+        return diagonalSum;
+    }
+}
+5.Count Negative Numbers in a Sorted Matrix
+lass Solution:
+  def countNegatives(self, grid: List[List[int]]) -> int:
+    m = len(grid)
+    n = len(grid[0])
+    ans = 0
+    i = m - 1
+    j = 0
+
+    while i >= 0 and j < n:
+      if grid[i][j] < 0:
+        ans += n - j
+        i -= 1
+      else:
+        j += 1
+
+    return ans
+6.Transpose Matrix
+class Solution:
+  def transpose(self, A: List[List[int]]) -> List[List[int]]:
+    ans = [[0] * len(A) for _ in range(len(A[0]))]
+
+    for i in range(len(A)):
+      for j in range(len(A[0])):
+        ans[j][i] = A[i][j]
+
+    return ans
+7. Set Matrix Zeroes
+class Solution:
+  def setZeroes(self, matrix: List[List[int]]) -> None:
+    m = len(matrix)
+    n = len(matrix[0])
+    shouldFillFirstRow = 0 in matrix[0]
+    shouldFillFirstCol = 0 in list(zip(*matrix))[0]
+
+    
+    for i in range(1, m):
+      for j in range(1, n):
+        if matrix[i][j] == 0:
+          matrix[i][0] = 0
+          matrix[0][j] = 0
+
+   
+    for i in range(1, m):
+      for j in range(1, n):
+        if matrix[i][0] == 0 or matrix[0][j] == 0:
+          matrix[i][j] = 0
+
+    
+    if shouldFillFirstRow:
+      matrix[0] = [0] * n
+
+    
+    if shouldFillFirstCol:
+      for row in matrix:
+        row[0] = 0
